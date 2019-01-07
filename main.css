@@ -1,0 +1,13 @@
+#movie{
+    border: 1px solid black;
+    margin:10px;
+}
+
+#title{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.panel-heading{
+    background-color:lightblue;
+}

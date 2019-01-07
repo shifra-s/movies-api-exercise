@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='node_modules\jquery\dist\jquery.js'></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="results"></div>
+    <script>
+        $.ajax({
+            url: 'https://api.themoviedb.org/3/movie/top_rated?api_key=6f829d011cba6ac4dc2afbafd6659f29&language=en-US&page=1',
+            method: 'GET'
+        }).done(function (d) {
+            if (typeof d === 'string')
+                d = JSON.parse(d);
+            console.log(d);
+
+            let resultsArray = d.results;
+
+            for (let i = 0; i < resultsArray.length; i++) {
+
+                let t = template;
+                t = t.replace('{{title}}', resultsArray[i].title);
+                t = t.replace('{{votesCount}}', resultsArray[i].vote_count);
+                t = t.replace('{{overview}}', resultsArray[i].overview);
+                $('#results').append(t);
+
+            }
+
+        });
+
+        const template =
+            `<div id="movie" class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="col-md-6" id="title">{{title}}</span>
+                    <span class="col-md-2" id="voteCount">{{votesCount}}</span>
+                </div>
+                <div class="panel-body" id="overview">{{overview}}</div>
+                </div>
+            </div>`
+
+    </script>
+
+</body>
+
+</html>
